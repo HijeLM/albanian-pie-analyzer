@@ -3,7 +3,7 @@ __pycache__/
 *.pyc
 *.pyo
 .env
-*.db
+# *.db files excluded except the main app database
 *.sqlite3
 
 # PDFs

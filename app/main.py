@@ -13,15 +13,6 @@ from app.scoring import compute_authenticity_score
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
-    from app.database import SessionLocal
-    db = SessionLocal()
-    count = db.query(Word).count()
-    db.close()
-    if count == 0:
-        print("Database empty — seeding...")
-        import subprocess
-        subprocess.run(["python3", "scripts/seed_extended.py"], check=False)
-        print("Seeding complete.")
     yield
 
 
