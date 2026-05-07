@@ -131,6 +131,19 @@ def health():
     return {"status": "ok"}
 
 
+@app.get("/debug")
+def debug():
+    import os
+    db_url = os.getenv("DATABASE_URL", "sqlite:///./albanian_pie.db")
+    db_file = "/app/albanian_pie.db"
+    return {
+        "database_url": db_url,
+        "db_file_exists": os.path.exists(db_file),
+        "db_file_size": os.path.getsize(db_file) if os.path.exists(db_file) else 0,
+        "cwd": os.getcwd(),
+    }
+
+
 @app.get("/stats")
 def stats(db: Session = Depends(get_db)):
     word_count = db.query(Word).count()
